@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">Comite Vecinal</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" th:href="@{/}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/municipios}">Municipios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/colonias}">Colonias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/comites}">Comites</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/enlaces}">Enlaces</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/categorias}">Categorías</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/comite/presidente/incidencias}">Incidencias</a>
+        </li>
+      </ul>
+      <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-default">Cerrar sesión</button>
+      </form> &nbsp;
+    </div>
+  </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+
+  <title>Incidencias</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link th:href="@{/css/myStyles.css}" rel="stylesheet">
+</head>
+
+<body>
+<nav th:replace="~{/fragments/menu2 :: nav}"></nav>
+
+<div>
+  <h1>
+    Lista de Incidencias:
+    <button type="button" class="btn btn-primary btnRegistrarEnlace" onclick="location.href='/comite/presidente/incidencia/registrar'">Añadir Incidencia</button>
+  </h1>
+  <br>
+
+  <table class="table table-dark table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Descripción:</th>
+      <th scope="col">Anexo:</th>
+      <th scope="col">Estado de la Solicitud:</th>
+      <th scope="col">Fecha de Registro:</th>
+      <th scope="col">Monto del Cobro:</th>
+      <th scope="col">Datos completos:</th>
+      <th scope="col">Comentarios:</th>
+      <th scope="col">Otras opciones:</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tmpIncidencias: ${listaIncidencias}">
+      <td th:text="${tmpIncidencias.descripcion}">descripcion</td>
+      <td th:text="${tmpIncidencias.anexo}">anexo</td>
+      <td th:text="${tmpIncidencias.estadoSolicitud}">estadoSolicitud</td>
+      <td th:text="${tmpIncidencias.fechaRegistro}">fechaRegistro</td>
+      <td th:text="${tmpIncidencias.montoCobro}">montoCobro</td>
+      <td>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" th:value="${tmpIncidencias}">
+          Mostrar
+        </button>
+      </td>
+
+
+      <!-- Modal -->
+      <div class="modal-dialog modal-dialog-scrollable modalView">
+        <div class="modal" tabindex="-1" id="exampleModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Datos:</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Descripcion:</label>
+                  <input type="text" class="form-control" id="recipient-name" th:value="${tmpIncidencias.descripcion}" disabled>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Anexo:</label>
+                  <input type="text" class="form-control" id="recipient-number" th:value="${tmpIncidencias.anexo}" disabled>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Estado:</label>
+                  <input type="text" class="form-control" id="recipient-tel" th:value="${tmpIncidencias.estadoSolicitud}" disabled>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Fecha de registro:</label>
+                  <input type="text" class="form-control" id="recipient-email" th:value="${tmpIncidencias.fechaRegistro}" disabled>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Monto del cobro:</label>
+                  <input type="number" class="form-control" id="cobro" th:value="${tmpIncidencias.montoCobro}" disabled>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Integrante:</label>
+                  <input type="text" class="form-control" id="recipient-mun" th:value="${tmpIncidencias.integrante.nombre}" disabled>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Categoria:</label>
+                  <input type="text" class="form-control" id="recipient-user" th:value="${tmpIncidencias.categoria.nombre}" disabled>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <td>
+        <a class="btn btn-primary" th:href="@{/comite/presidente/incidencia/comentar/{id} (id=${tmpIncidencias.id})}">Comentar</a>
+        <a class="btn btn-primary" th:href="@{/comite/presidente/ver-comentarios/{id} (id=${tmpIncidencias.id})}">Ver comentarios</a>
+      </td>
+      <td>
+        <a class="btn btn-warning" th:href="@{/incidencia/actualizar/{id} (id=${tmpIncidencias.id})}">Actualizar</a>
+        <a class="btn btn-warning" th:href="@{/editar-incidencia-enlace/{id} (id=${tmpIncidencias.id})}">Actualizar</a>
+        <a class="btn btn-danger" th:href="@{/incidencia/{id} (id=${tmpIncidencias.id})}">Eliminar</a>
+      </td>
+      <td>
+        <div class="form-check form-switch" th:if="${tmpIncidencias.esPorCobrar == true}">
+          <input class="form-check-input" type="checkbox" checked disabled>
+          <label class="form-check-label">Por cobrar</label>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/myFunctions.js}"></script>
+</body>
+
+</html>

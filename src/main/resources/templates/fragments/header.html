@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary" th:fragment="header">
+    <a class="navbar-brand text-light">ComiteVecinal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link text-light" href="/default">Inicio</a>
+            </li>
+
+            <form method="post" th:action="@{/logout}">
+                <button type="submit" class="btn btn-danger" style="margin-left: 1090px">Cerrar Sesion</button>
+            </form>
+        </ul>
+    </div>
+</nav>

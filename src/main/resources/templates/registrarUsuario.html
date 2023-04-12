@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head>
+
+<title>Registrar usuario</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<link th:href="@{/css/myStyles.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+  <div th:insert="~{fragments/header :: header}"></div>
+
+  <div class="row">
+    <div class="col-2" th:insert="~{fragments/menuAdmin :: menu}"></div>
+
+    <div class="col-10">
+      <div class="card mt-3">
+        <div class="card-body">
+
+	<section class="vh-100" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registrar enlace:</p>
+
+                <form class="mx-1 mx-md-4" th:action="@{/usuario/registrar}" th:object="${usuarios}" method="post">
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="text" th:field="*{userName}" name="userName" class="form-control">
+                      <label class="form-label">Usuario</label>
+                      </div>
+                    </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="password" id="form3Example3c" th:field="*{password}" name="password" class="form-control">
+                      <label class="form-label" for="form3Example3c">Contraseña</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+                      <div class="form-outline">
+                        <select th:if="${!tmpRoles.tipo.equalsIgnoreCase('ROLE_PRESIDENTE')} and ${!tmpRoles.tipo.equalsIgnoreCase('ROLE_ADMINISTRADOR')}" class="form-select" th:field="*{roles}" th:each="tmpRoles: ${roles}" aria-label="Default select example">
+                          <option th:value="${tmpRoles.id}">[[${tmpRoles.tipo}]]</option>
+                        </select>
+                        <label class="col-form-label">Roles:</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                      <img src="/images/registroUsuario.png"
+                           class="img-fluid" alt="Sample image">
+
+                    </div>
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                      <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
+                    </div>
+                  </div>
+
+                </form>
+                  </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+</section>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+<script th:src="@{/js/myFunctions.js}"></script>
+</body>
+</html>
+
